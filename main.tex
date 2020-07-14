@@ -1,38 +1,51 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{apacite}
+\usepackage[round]{natbib}
+
 
 \begin{document}
-\title{Intr to }
+\title{Chaotic diffusion of fundamental frequencies of the Solar System }
 
 
-\author{Author's Name}
+\author{Nam HOANG, Federico MOGAVERO and Jacques LASKAR}
 
 \maketitle
 
 \begin{abstract}
-    Variations in the Earth's orbit govern the insolation and its climate. The astronomical signals, which have been recovered in geological records , revolutionized the accuracy and precision of determination of the geological time scale 
-    The orbital variations beyond 50 Myr cannot be reliably predicted because of the chaotic dynamics of the Solar System 
-    However, the chaotic orbital evolution in the past could be constrained by geological data: Among 11 possible different astronomical evolutions, one was found to match the Newark-Hartford (NH) data from 210 Myrs ago 
-    With 10,000 numerical integrations of 300 Myr from averaged equations of simplified Solar System, we have found several solutions that match better with the NH data, and a robust mechanism of the transition in Libsack record.
-    Statistical analysis was also performed to obtain the probability density functions (PDF) of fundamental frequencies of the Solar System, that could be roughly approximated by Gaussian functions. The evolution of the PDF is found to be similar to the one of a diffusive process.
-
-
+   TBD
 \end{abstract}
 
 
 
 \section{Introduction}
-Here is the text of your introduction.
 
+\cite{milankovitch1941canon} hypothesized that the origin of large climate change on Earth originates from the long-term variation of its orbital elements. 
+Equipped with a precise orbital solution (\citealt{laskar2004}, \citealt{laskar2010}), the noisy geological record can be dated with high precision. This method - astrochronology becomes standard practice in the stratigraphic community, and proves to be a powerful tool to reconstruct the geological timescale \citep{gradstein2012}.
+The climate rhythm found in the geological record is directly linked to the Earth’s precession constant p and fundamental frequencies of the Solar System: The precession of perihelion in the orbital plane ($g_i$ frequencies) and the precession of node of the orbital plane($s_i$ frequencies).  The evolution of these fundamental frequencies is accurately determined up to 60 Ma. Beyond that, even with the current high precision ephemeris, it is hopeless to obtain a  history of the Solar System simply by numerical integration. The origin of this limit is less a matter of initial conditions precision than the chaotic nature of the Solar System \citep{laskar1990}.  However, because the astronomical signal is rhythmically recorded in the geological data, it is possible to trace back and constrain the astronomical solutions beyond the predictability horizon \citep{olsen2019,ma2017}. Nevertheless, the deterministic view of the Solar System is forever lost beyond 60 Ma, and therefore, the deterministic approach has to be given away for a  more reliable probabilistic framework. Geological constraints likewise must be done in a statistical setting. In this spirit, a recent Bayesian Markov Chain Monte Carlo approach named TimeOptMCMC  \citep{meyers2018} has been proposed to provide geological constraints on the fundamental frequencies. In order for a Bayesian approach like this to give any meaningful constraint, proper prior distributions of frequencies are required and therefore a statistical study of the orbital motion of Solar System planets is needed, and thus our motivation for this study.
+
+ \cite{laskar2008} was first to perform a statistical analysis to study the long term chaotic behavior of eccentricity and inclination of the Solar System planets. \cite{federico2017}  has interestingly reconsidered the problems using a statistical ensemble approach with the conservation of total energy and total angular momentum. Our study, in many respects, is a follow-up of \citep{laskar2008}. We study fundamental frequencies instead of orbital elements because they are more robust and easier to be traced in and therefore linked with the geological records. This study is based on the numerical integrations of more than 100,000 different solutions of the averaged equations of the Solar System using very close initial conditions, compatible with our present knowledge. 
+
+\section{Numerical implementaion}
+\subsection{Secular equations}
+\subsection{Frequency Analysis} \label{sect:FA}
+We used the frequency analysis technique that was proposed and tested by Laskar (1988, 1993) to extract the fundamental frequencies from the integrated solutions. The method find a quasi-periodic approximation $f'(t) = \sum_{k=1}^N a_k e^{i\nu_k t}$ of a function $f(t)$. It first finds the strongest mode, which corresponding  to the maximum of the function: 
 \begin{equation}
-    \label{simple_equation}
-    \alpha = \sqrt{ \beta }
+    \phi (\sigma) = \braket{f(t), e^{i \sigma t}} = \frac{1}{2T} \int^T_{-T} \chi( t ) f(t) e^{-i \sigma t} dt, 
 \end{equation}
+where $\chi (t)$ is a weight function of choice to improve the precision of maximum determination; it is chosen to be the Hanning window filter, that is $\chi(t) = 1 + \cos(\pi t/T )$. The next step is the Gram-Schmidt orthogonalization. The complex amplitude $a_1$ of the first frequency  $\nu_1$ is calculated by orthogonal projection of function $f(t)$ on  $e^{i\nu_1 t}$. This mode is then subtracted from the function $f(t)$ to get a new function $f_1(t) = f(t) - a_1 e^{\nu t}$. The process is then repeated with this newly-obtained function until a desired N strongest modes are obtained. This technique work very well for weakly-chaotic systems like the Solar System, when variables can be decomposed into quasi-periodic modes in a sufficiently short period of time. It has been rigorously proven that this algorithm is several order of magnitude better than the classical Fast Fourier Transform. Therefore, it is an excellent tool to study the chaotic diffusion of the fundamental frequencies. In this work, we used a routine written in the language TRIP \citep{gastineau2011trip}, developed at IMCCE, to apply directly the frequency analysis.
+\section{Chaotic diffusion}
+Show the change of means and variances
+\section{Probability Density Function}
+\subsection{Compare with complete }
+\subsection{Compare with itself - same size }
+\subsection{Compare with itself - different size}
+\subsection{Compare with different size of window}
+\section{Compare with geological data}
+\subsection{Meyers}
+\subsection{Olsen}
 
-\subsection{Subsection Heading Here}
-Writttte your subsection text here.
-
-\section{Conclusion}
-Write your conclusion here.
-
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{reference}
 \end{document}
